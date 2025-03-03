@@ -14,8 +14,7 @@ public class SeleniumIntroduction {
     }
 
     public static void loginScenario() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver",
-                "C:/Users/Admin/Web Automation Batch 2/webautomationbatch2/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","C:/Users/Admin/Web Automation Batch 2/webautomationbatch2/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         driver.get("https://rahulshettyacademy.com/locatorspractice/");
