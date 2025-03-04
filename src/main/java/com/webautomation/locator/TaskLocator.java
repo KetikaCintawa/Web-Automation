@@ -2,12 +2,16 @@ package com.webautomation.locator;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TaskLocator {
     public static void main(String[] args) throws InterruptedException {
@@ -60,7 +64,7 @@ public class TaskLocator {
             }
         }
 
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
         /*
          * Dropdown
@@ -76,7 +80,7 @@ public class TaskLocator {
         dropdown.selectByVisibleText("Select");
         System.out.println("Select" + dropdown.getFirstSelectedOption().getText());
 
-        Thread.sleep(4000);
+        Thread.sleep(2000);
 
         dropdown.selectByValue("option1");
 
@@ -100,12 +104,91 @@ public class TaskLocator {
 
         Thread.sleep(2000);
 
-        driver.quit();
-
         /*
-         * Lanjut besok..
+         * Switch Windows
          */
 
+         driver.findElement(By.id("openwindow")).click();
+
+         Set<String> windows = driver.getWindowHandles();
+
+         Iterator<String> iterator = windows.iterator();
+         String parentId = iterator.next();
+         String childId = iterator.next();
+
+         driver.switchTo().window(childId);
+
+         System.out.println("Ini adalah windows" + windows);
+
+         Thread.sleep(5000);
+
+         driver.close();
+
+         driver.switchTo().window(parentId);
+
+         System.out.println("Kembali ke jendela utama. Ini adalah windows: " + driver.getWindowHandles());
+
+         Thread.sleep(5000);
+
+         /*
+          * Switch Tab
+          */
+
+        driver.findElement(By.id("opentab")).click();
+
+        windows = driver.getWindowHandles();
+        iterator = windows.iterator();
+        parentId = iterator.next(); 
+        childId = iterator.next();
+
+        driver.switchTo().window(childId);
+
+        System.out.println("Beralih ke tab baru. Ini adalah windows: " + windows);
+
+        Thread.sleep(5000);
+
+        driver.close();
+
+        driver.switchTo().window(parentId);
+
+        System.out.println("Kembali ke tab utama. Ini adalah windows: " + driver.getWindowHandles());
+
+        Thread.sleep(3000);
+
+        /*
+         * Switch to Alert
+         */
+
+        driver.findElement(By.id("name")).sendKeys("Ketika Cintawa");
+        Thread.sleep(3000);
+
+        driver.findElement(By.id("alertbtn")).click();
+        Thread.sleep(3000);
+
+        System.out.println(driver.switchTo().alert().getText());
+        Thread.sleep(3000);
+
+        driver.switchTo().alert().accept();
+
+        /*
+         * Swith to alert : confirm
+         */
+
+         Thread.sleep(5000);
+
+         driver.findElement(By.id("name")).sendKeys("Ketika Cintawa");
+         Thread.sleep(4000);
+
+         driver.findElement(By.id("confirmbtn")).click();
+         Thread.sleep(3000);
+
+         System.out.println(driver.switchTo().alert().getText());
+         Thread.sleep(3000);
+
+         driver.switchTo().alert().accept();
+         Thread.sleep(4000);
+
+         driver.quit();
     }
 
 }
