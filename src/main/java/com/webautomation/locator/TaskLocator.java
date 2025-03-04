@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import org.openqa.selenium.interactions.Actions;
+
 public class TaskLocator {
     public static void main(String[] args) throws InterruptedException {
 
@@ -188,7 +190,120 @@ public class TaskLocator {
          driver.switchTo().alert().accept();
          Thread.sleep(4000);
 
-         driver.quit();
+        /*
+         * Web Table
+         */
+
+        WebElement table = driver.findElement(By.id("product"));
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        System.out.println("Jumlah course: " + (rows.size() - 1));
+
+        for (int i = 1; i < rows.size(); i++) {
+            List<WebElement> columns = rows.get(i).findElements(By.tagName("td"));
+        
+            String instructor = columns.get(0).getText();
+            String course = columns.get(1).getText();
+            String price = columns.get(2).getText();
+            
+            System.out.println(i + ". " + course + " - $" + price);
+            
+            Thread.sleep(5000);
+
+    }
+
+        /*
+         * Element Displayed
+         */
+
+         driver.findElement(By.id("displayed-text")).sendKeys("Ketika");
+         Thread.sleep(4000);
+
+         //Hide
+         driver.findElement(By.id("hide-textbox")).click();
+         Thread.sleep(5000);
+
+         //Show
+         driver.findElement(By.id("show-textbox")).click();
+         Thread.sleep(5000);
+
+         String textValue = driver.findElement(By.id("displayed-text")).getAttribute("value");
+         System.out.println("Value Element Displayed: " + textValue);
+
+         Thread.sleep(4000);
+
+         /*
+          * Web Table Fixed Header
+          */
+
+        WebElement fixedTable = driver.findElement(By.className("tableFixHead"));
+
+        List<WebElement> rows1 = fixedTable.findElements(By.tagName("tr"));
+        System.out.println("Jumlah data dalam tabel: " + (rows1.size() - 1));
+
+        List<WebElement> amounts = driver.findElements(By.cssSelector(".tableFixHead td:nth-child(4)"));
+
+        int totalAmount = 0;
+        for (int i = 1; i < rows1.size(); i++) {
+            List<WebElement> columns = rows1.get(i).findElements(By.tagName("td"));
+            
+            String name = columns.get(0).getText();
+            String position = columns.get(1).getText();
+            String city = columns.get(2).getText();
+            int amount = Integer.parseInt(columns.get(3).getText());
+            
+            totalAmount += amount;
+            
+            System.out.println(name + " - " + position + " - " + city + " - " + amount);
+        }
+
+        System.out.println("\nTotal Amount Calculated: " + totalAmount);
+
+        /*
+         * Mouse Hover
+         */
+
+        Actions actions = new Actions(driver);
+        
+        WebElement mouseHover = driver.findElement(By.id("mousehover"));
+
+        actions.moveToElement(mouseHover).perform();
+
+        Thread.sleep(2000);
+
+        WebElement topLink = driver.findElement(By.xpath("//div[@class='mouse-hover-content']/a[text()='Top']"));
+        topLink.click();
+
+        Thread.sleep(2000);
+
+        actions.moveToElement(mouseHover).perform();
+        Thread.sleep(2000);
+        WebElement reloadLink = driver.findElement(By.xpath("//div[@class='mouse-hover-content']/a[text()='Reload']"));
+        reloadLink.click();
+                
+        /*
+         * iFrame
+         */
+
+        List<WebElement> iframes = driver.findElements(By.tagName("iframe"));
+        System.out.println("Jumlah iFrame pada halaman: " + iframes.size());
+
+        Thread.sleep(5000);
+
+        driver.switchTo().frame("courses-iframe");
+
+        Thread.sleep(5000);
+
+        // Interaksi : Mencoba menekan All access plan
+        WebElement accessPlan = driver.findElement(By.xpath("//a[@class='new-navbar-highlighter'][normalize-space()='All Access plan']"));
+        accessPlan.click();
+
+        Thread.sleep(5000);
+
+        driver.switchTo().defaultContent();
+
+        Thread.sleep(2000);
+
+        driver.quit();
     }
 
 }
