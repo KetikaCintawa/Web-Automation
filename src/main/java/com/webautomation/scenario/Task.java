@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Task {
     public static void main(String[] args) throws InterruptedException {
@@ -29,7 +30,8 @@ public class Task {
         //Setup Driver
         System.setProperty("webdriver.chrome.driver","C:/Users/Admin/Web Automation Batch 2/webautomationbatch2/chromedriver.exe");
 
-        WebDriver driver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
+        ChromeDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 

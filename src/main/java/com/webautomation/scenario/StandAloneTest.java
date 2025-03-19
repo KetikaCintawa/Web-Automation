@@ -1,6 +1,5 @@
 package com.webautomation.scenario;
 
-import java.nio.file.WatchEvent;
 import java.time.Duration;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -54,12 +52,12 @@ public class StandAloneTest {
         //List Product
         List<WebElement> listProduct =  driver.findElements(By.cssSelector(".mb-3"));
 
-        String productName = "ZARA COAT 3";
+        String productName = "ADIDAS ORIGINAL";
 
         WebElement product = listProduct.stream().filter(prod -> 
         prod.findElement(By.cssSelector("b")).getText().equals(productName)).findFirst().orElse(null);
 
-        product.findElement(By.xpath("//div[@class='card-body']//child::button//child::i[@class='fa fa-shopping-cart']")).click();
+        product.findElement(By.xpath("//body[1]/app-root[1]/app-dashboard[1]/section[2]/div[1]/div[2]/div[2]/div[1]/div[1]/button[2]")).click();
 
         System.out.println("list product" + product);
 
