@@ -11,13 +11,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.webautomation.pageobjects.CartPage;
 import com.webautomation.pageobjects.LandingPage;
 import com.webautomation.pageobjects.ProductListPage;
+import com.webautomation.pageobjects.Checkout1Page;
+import com.webautomation.pageobjects.Checkout2Page;
+import com.webautomation.pageobjects.ConfirmationPage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -57,52 +62,40 @@ public class StandAloneTestNGImpl {
          * Menggunakan Data Provider
          */
 
-      LandingPage landingPage = new LandingPage(driver);
-      landingPage.loginApplication(input.get("user-name"), input.get("password"));
-
-      wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".inventory_item")));
-
-      String productName = "Sauce Labs Backpack";
-      ProductListPage productListPage = new ProductListPage(driver);
-      productListPage.addToCart(productName);
-
-      //   System.out.println("list product" + product);
+        LandingPage landingPage = new LandingPage(driver);
+        landingPage.loginApplication(input.get("user-name"), input.get("password"));
+        
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".inventory_item")));
+        
+        String productName = "Sauce Labs Backpack";
+        ProductListPage productListPage = new ProductListPage(driver);
+        productListPage.addToCart(productName);
 
         Thread.sleep(3000);
 
         driver.findElement(By.xpath("//div[@id='shopping_cart_container']")).click();
 
-        driver.findElement(By.cssSelector(".checkout_button")).click();
-
+        CartPage cartPage = new CartPage(driver);
+        cartPage.goToCheckoutPage();
+        
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[placeholder = 'First Name']")));
 
-        Actions action =  new Actions(driver);
+        Checkout1Page orderPage = new Checkout1Page(driver);
+        orderPage.fillOrderForm(input.get("first-name"), input.get("last-name"), input.get("postal-code"));
+        orderPage.placeOrder();
 
-        action.sendKeys(driver.findElement(By.cssSelector("[placeholder = 'First Name']")),"Ketika").build().perform();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".title")));
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[placeholder = 'Last Name']")));
+        Checkout2Page summaryOrder = new Checkout2Page(driver);
+        String summaryOrderText = summaryOrder.getSummaryOrder();
+        Assert.assertEquals(summaryOrderText, "Checkout: Overview");
+        summaryOrder.clickFinish();
 
-        action.sendKeys(driver.findElement(By.cssSelector("[placeholder = 'Last Name']")),"Cintawa").build().perform();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".title")));
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[placeholder = 'Zip/Postal Code']")));
-
-        action.sendKeys(driver.findElement(By.cssSelector("[placeholder = 'Zip/Postal Code']")),"64131").build().perform();
-
-        Thread.sleep(3000);
-
-        driver.findElement(By.cssSelector(".cart_button")).click();
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("title")));
-
-        Thread.sleep(5000);
-
-        driver.findElement(By.cssSelector(".cart_button")).click();
-
-        String confirmationPage = driver.findElement(By.className("complete-header")).getText();
-
-        Thread.sleep(5000);
-
-        System.out.println("buyer berhasil checkout " + confirmationPage);
+        ConfirmationPage confirmationPage = new ConfirmationPage(driver);
+        String confirmationPageText = confirmationPage.getConfirmationPage();
+        Assert.assertEquals(confirmationPageText, "Thank you for your order!");
 
  }
 
@@ -128,6 +121,9 @@ public class StandAloneTestNGImpl {
     map.put("user-name", "standard_user");
     map.put("password", "secret_sauce");
     map.put("product-name", "Sauce Labs Backpack");
+    map.put("first-name","Ketika");
+    map.put("last-name","Cintawa");
+    map.put("postal-code","64131");
     return new Object[][] {{map}};
 
  }
