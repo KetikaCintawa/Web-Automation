@@ -1,14 +1,18 @@
 package com.webautomation.pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Checkout1Page {
+import com.webautomation.abstractcomponents.AbstractComponent;
+
+public class Checkout1Page extends AbstractComponent{
  WebDriver driver;
 
     public Checkout1Page(WebDriver driver){
+        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -25,6 +29,8 @@ public class Checkout1Page {
     @FindBy(css = ".cart_button")
     WebElement placeOrderButton;
 
+    By firstName = By.cssSelector("[placeholder = 'First Name']");
+
     public void fillOrderForm(String firstName, String lastName, String zipCode) {
         firstNameInput.sendKeys(firstName);
         lastNameInput.sendKeys(lastName);
@@ -32,6 +38,7 @@ public class Checkout1Page {
     }
 
     public void placeOrder() {
+        visibilityOfElementLocated(firstName);
         placeOrderButton.click();
     }
     

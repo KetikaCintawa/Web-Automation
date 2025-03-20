@@ -8,11 +8,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ProductListPage {
+import com.webautomation.abstractcomponents.AbstractComponent;
+
+public class ProductListPage extends AbstractComponent{
     WebDriver driver;
     WebElement product;
     
     public ProductListPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -34,6 +37,7 @@ public class ProductListPage {
     }
 
     public void addToCart(String productName) throws InterruptedException {
+        visibilityOfElementLocated(titleProduct);
         product = getProductByName(productName);
         product.findElement(cartButton).click();
         Thread.sleep(2000);

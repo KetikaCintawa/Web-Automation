@@ -51,9 +51,6 @@ public class StandAloneTestNGImpl {
  
  @Test (dataProvider="dataTestMapping")
  public void createOder(HashMap<String, String> input) throws InterruptedException{
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1000));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name")));
         
         // Scenario Login
         /* 
@@ -64,9 +61,7 @@ public class StandAloneTestNGImpl {
 
         LandingPage landingPage = new LandingPage(driver);
         landingPage.loginApplication(input.get("user-name"), input.get("password"));
-        
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".inventory_item")));
-        
+                
         String productName = "Sauce Labs Backpack";
         ProductListPage productListPage = new ProductListPage(driver);
         productListPage.addToCart(productName);
@@ -78,20 +73,20 @@ public class StandAloneTestNGImpl {
         CartPage cartPage = new CartPage(driver);
         cartPage.goToCheckoutPage();
         
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[placeholder = 'First Name']")));
+      //   wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[placeholder = 'First Name']")));
 
         Checkout1Page orderPage = new Checkout1Page(driver);
         orderPage.fillOrderForm(input.get("first-name"), input.get("last-name"), input.get("postal-code"));
         orderPage.placeOrder();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".title")));
+      //   wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".title")));
 
         Checkout2Page summaryOrder = new Checkout2Page(driver);
         String summaryOrderText = summaryOrder.getSummaryOrder();
         Assert.assertEquals(summaryOrderText, "Checkout: Overview");
         summaryOrder.clickFinish();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".title")));
+      //   wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".title")));
 
         ConfirmationPage confirmationPage = new ConfirmationPage(driver);
         String confirmationPageText = confirmationPage.getConfirmationPage();
