@@ -7,15 +7,7 @@ Background: Buyer landed to website
   Given Buyer landing to ecommerce
 
 #seperti Test di testng
-# Scenario: Create order positive case
-#   Given Buyer logged to website
-#   When Buyer add product to Cart 
-#   And Buyer checkout product
-#   And Buyer place order
-#   And Buyer will see checkout overview
-#   Then Buyer will receive confirmation page
-
-Scenario Outline: Create order positive case
+Scenario: Create order positive case
   Given Buyer logged to website email <email> and password <password>
   When Buyer add product <product_name> to Cart 
   And Buyer checkout product

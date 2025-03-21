@@ -17,6 +17,7 @@ import com.webautomation.pageobjects.LandingPage;
 import com.webautomation.pageobjects.ProductListPage;
 
 import components.BaseTest;
+import hooks.Hooks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -28,13 +29,7 @@ public class StepDefinitionsImpl extends BaseTest{
     public WebDriver driver;
     @Given("Buyer landing to ecommerce")
     public void landingPage() throws IOException{
-    // System.setProperty("webdriver.chrome.driver","C:/Users/Admin/Web Automation Batch 2/webautomationbatch2/chromedriver.exe");
-    // WebDriverManager.chromedriver().setup();
-    // driver = new ChromeDriver();
-    // driver.get("https://www.saucedemo.com/");
-    // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-
-    driver = initializeDriver();
+    driver=Hooks.initializeDriver();
         
     }
 
@@ -81,8 +76,6 @@ public class StepDefinitionsImpl extends BaseTest{
     public void buyerSeeOrderConfirmation(String successCheckout){
          ConfirmationPage confirmationPage = new ConfirmationPage(driver);
         String confirmationPageText = confirmationPage.getConfirmationPage();
-        Assert.assertEquals(confirmationPageText, successCheckout);
-        driver.quit();
-        
+        Assert.assertEquals(confirmationPageText, successCheckout);        
     }
 }
