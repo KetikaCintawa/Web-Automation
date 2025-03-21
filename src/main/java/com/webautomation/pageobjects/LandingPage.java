@@ -35,12 +35,22 @@ public class LandingPage extends AbstractComponent{
     WebElement LoginBtn;
 
     By cartButton = By.id("user-name");
+
+    @FindBy (xpath = "//h3[contains(text(),'Epic sadface: Username and password do not match a')]")
+    WebElement errorBadge;
+
+    By error = By.xpath("//h3[contains(text(),'Epic sadface: Username and password do not match a')]");
  
     public void loginApplication(String email, String password){
         visibilityOfElementLocated(cartButton);
         userEmail.sendKeys(email);
         userPassword.sendKeys(password);
         LoginBtn.click();
+    }
+
+    public String getErrorBadge(){
+        visibilityOfElementLocated(error);
+        return errorBadge.getText();
     }
     
 }

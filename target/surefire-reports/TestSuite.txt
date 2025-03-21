@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 2.169 s <<< FAILURE! - in TestSuite
+runScenario(runners.TestRunnerTestNg)  Time elapsed: 0.142 s  <<< FAILURE!
+io.cucumber.core.runner.DuplicateStepDefinitionException: Duplicate step definitions in stepdefinitions.StepDefinitionsImpl.landingPage() and stepdefinitions.StepDefinitionsImpl2.landingPage()
+
+runScenario(runners.TestRunnerTestNg)  Time elapsed: 0.037 s  <<< FAILURE!
+io.cucumber.core.runner.DuplicateStepDefinitionException: Duplicate step definitions in stepdefinitions.StepDefinitionsImpl.landingPage() and stepdefinitions.StepDefinitionsImpl2.landingPage()
+

@@ -18,3 +18,11 @@ Scenario: Create order positive case
   Examples:
   | email         | password     | product_name        | first_name | last_name | zip_code |
   | standard_user | secret_sauce | Sauce Labs Backpack | Ketika     | Cintawa   | 64131    |
+
+Scenario Outline: Login Negative Case 
+  When Buyer logged to website with wrong email <email> or password <password>
+  Then Buyer will see tag heading error Epic sadface: Username and password do not match any user in this service
+
+  Examples:
+  |email                         | password        |
+  |standard_user                 | wrong_pw        |

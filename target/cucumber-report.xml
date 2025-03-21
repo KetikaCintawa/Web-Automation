@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="13.831" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-21T16:54:21.601538500Z">
-<testcase classname="Purchase the order from ecommerce" name="Create order positive case - #1.1" time="13.495">
+<testsuite name="Cucumber" time="17.928" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-03-21T18:37:03.891752500Z">
+<testcase classname="Purchase the order from ecommerce" name="Create order positive case - #1.1" time="10.999">
 <system-out><![CDATA[
 Given Buyer landing to ecommerce............................................passed
 Given Buyer logged to website email standard_user and password secret_sauce.passed
@@ -9,6 +9,13 @@ And Buyer checkout product..................................................pass
 And Buyer place order first_name Ketika last_name Cintawa and zip_code 64131.passed
 And Buyer will see checkout overview........................................passed
 Then Buyer will receive confirmation page Thank you for your order!.........passed
+]]></system-out>
+</testcase>
+<testcase classname="Purchase the order from ecommerce" name="Login Negative Case - #1.1" time="6.522">
+<system-out><![CDATA[
+Given Buyer landing to ecommerce............................................passed
+When Buyer logged to website with wrong email standard_user or password wrong_pw.passed
+Then Buyer will see tag heading error Epic sadface: Username and password do not match any user in this service.passed
 ]]></system-out>
 </testcase>
 </testsuite>

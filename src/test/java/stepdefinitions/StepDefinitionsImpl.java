@@ -74,8 +74,24 @@ public class StepDefinitionsImpl extends BaseTest{
     
     @Then("^Buyer will receive confirmation page (.+)$")
     public void buyerSeeOrderConfirmation(String successCheckout){
-         ConfirmationPage confirmationPage = new ConfirmationPage(driver);
+        ConfirmationPage confirmationPage = new ConfirmationPage(driver);
         String confirmationPageText = confirmationPage.getConfirmationPage();
         Assert.assertEquals(confirmationPageText, successCheckout);        
     }
+
+    @When ("^Buyer logged to website with wrong email (.+) or password (.+)$")
+    public void buyerLoginn(String email, String password){
+        LandingPage landingPage = new LandingPage(driver);
+        landingPage.loginApplication(email, password);
+        String wrongCredentials = landingPage.getErrorBadge();
+        Assert.assertEquals(wrongCredentials, "Epic sadface: Username and password do not match any user in this service");
+    }
+
+    @Then("^Buyer will see tag heading error (.+)$")
+    public void buyerSeeError(String errorTag){
+        LandingPage landingPage = new LandingPage(driver);
+        String errorTagText = landingPage.getErrorBadge();
+        Assert.assertEquals(errorTagText, errorTag);
+    }
+
 }
