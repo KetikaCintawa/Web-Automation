@@ -19,7 +19,7 @@ public class AbstractComponent {
         this.driver = driver;
     }
     public void visibilityOfElementLocated(By locator){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1000));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(8000));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }

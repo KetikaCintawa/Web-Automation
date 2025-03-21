@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="13.02" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-21T16:18:42.097028400Z">
+<testcase classname="Purchase the order from ecommerce" name="Create order positive case - #1.1" time="12.739">
+<system-out><![CDATA[
+Given Buyer landing to ecommerce............................................passed
+Given Buyer logged to website email standard_user and password secret_sauce.passed
+When Buyer add product Sauce Labs Backpack to Cart..........................passed
+And Buyer checkout product..................................................passed
+And Buyer place order first_name Ketika last_name Cintawa and zip_code 64131.passed
+And Buyer will see checkout overview........................................passed
+Then Buyer will receive confirmation page Thank you for your order!.........passed
+]]></system-out>
+</testcase>
+</testsuite>
