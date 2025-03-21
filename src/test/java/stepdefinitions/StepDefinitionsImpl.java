@@ -3,9 +3,11 @@ package stepdefinitions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
@@ -13,6 +15,7 @@ import com.webautomation.pageobjects.CartPage;
 import com.webautomation.pageobjects.Checkout1Page;
 import com.webautomation.pageobjects.Checkout2Page;
 import com.webautomation.pageobjects.ConfirmationPage;
+import com.webautomation.pageobjects.FilteringProducts;
 import com.webautomation.pageobjects.LandingPage;
 import com.webautomation.pageobjects.ProductListPage;
 
@@ -93,5 +96,32 @@ public class StepDefinitionsImpl extends BaseTest{
         String errorTagText = landingPage.getErrorBadge();
         Assert.assertEquals(errorTagText, errorTag);
     }
+
+    @When("^Buyer filter products by (.+)$")
+    public void buyerFilterProducts(String productType){
+        FilteringProducts filteringProducts = new FilteringProducts(driver);
+        switch (productType) {
+            case "Name (A to Z)":
+                filteringProducts.selectNameAToZ();
+                break;
+            case "Name (Z to A)":
+                filteringProducts.selectNameZToA();
+                break;
+            case "Price (low to high)":
+                filteringProducts.selectPriceLowToHigh();
+                break;
+            case "Price (high to low)":
+                filteringProducts.selectPriceHighToLow(); // Pastikan metode ini ada di Page Object
+                break;
+            }
+    }
+
+    @Then("^Buyer will see products sorted by (.+)$")
+    public void buyerSeeFilteredProducts(String productType){
+        FilteringProducts filteringProducts = new FilteringProducts(driver);
+        String selectedOption = filteringProducts.getSelectedFilterOption();
+        Assert.assertEquals(selectedOption, productType, "Filter tidak cocok");
+
+            }
 
 }

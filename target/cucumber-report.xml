@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="17.928" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-03-21T18:37:03.891752500Z">
-<testcase classname="Purchase the order from ecommerce" name="Create order positive case - #1.1" time="10.999">
+<testsuite name="Cucumber" time="36.091" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-03-21T19:26:40.002359500Z">
+<testcase classname="Purchase the order from ecommerce" name="Create order positive case - #1.1" time="11.945">
 <system-out><![CDATA[
 Given Buyer landing to ecommerce............................................passed
 Given Buyer logged to website email standard_user and password secret_sauce.passed
@@ -11,11 +11,32 @@ And Buyer will see checkout overview........................................pass
 Then Buyer will receive confirmation page Thank you for your order!.........passed
 ]]></system-out>
 </testcase>
-<testcase classname="Purchase the order from ecommerce" name="Login Negative Case - #1.1" time="6.522">
+<testcase classname="Purchase the order from ecommerce" name="Login Negative Case - #1.1" time="7.645">
 <system-out><![CDATA[
 Given Buyer landing to ecommerce............................................passed
 When Buyer logged to website with wrong email standard_user or password wrong_pw.passed
 Then Buyer will see tag heading error Epic sadface: Username and password do not match any user in this service.passed
+]]></system-out>
+</testcase>
+<testcase classname="Purchase the order from ecommerce" name="Login Negative Case - #1.2" time="7.322">
+<system-out><![CDATA[
+Given Buyer landing to ecommerce............................................passed
+When Buyer logged to website with wrong email wrong_email or password secret_sauce.passed
+Then Buyer will see tag heading error Epic sadface: Username and password do not match any user in this service.passed
+]]></system-out>
+</testcase>
+<testcase classname="Purchase the order from ecommerce" name="Filtering Products (4 Options) - #1.1" time="8.735">
+<system-out><![CDATA[
+Given Buyer landing to ecommerce............................................passed
+Given Buyer logged to website email standard_user and password secret_sauce.passed
+When Buyer filter products by Name (A to Z).................................passed
+Then Buyer will see products sorted by Name (A to Z)........................passed
+When Buyer filter products by Name (Z to A).................................passed
+Then Buyer will see products sorted by Name (Z to A)........................passed
+When Buyer filter products by Price (low to high)...........................passed
+Then Buyer will see products sorted by Price (low to high)..................passed
+When Buyer filter products by Price (high to low)...........................passed
+Then Buyer will see products sorted by Price (high to low)..................passed
 ]]></system-out>
 </testcase>
 </testsuite>

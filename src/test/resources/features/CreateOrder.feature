@@ -26,3 +26,19 @@ Scenario Outline: Login Negative Case
   Examples:
   |email                         | password        |
   |standard_user                 | wrong_pw        |
+  |wrong_email                   | secret_sauce    |
+
+Scenario Outline: Filtering Products (4 Options)
+  Given Buyer logged to website email <email> and password <password>
+  When Buyer filter products by Name (A to Z)
+  Then Buyer will see products sorted by Name (A to Z)
+  When Buyer filter products by Name (Z to A)
+  Then Buyer will see products sorted by Name (Z to A)
+  When Buyer filter products by Price (low to high)
+  Then Buyer will see products sorted by Price (low to high)
+  When Buyer filter products by Price (high to low)
+  Then Buyer will see products sorted by Price (high to low)
+
+  Examples:
+  |email                         | password        |
+  |standard_user                 | secret_sauce    |
