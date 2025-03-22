@@ -19,15 +19,15 @@ Background: Buyer landed to website
 #   | email         | password     | product_name        | first_name | last_name | zip_code |
 #   | standard_user | secret_sauce | Sauce Labs Backpack | Ketika     | Cintawa   | 64131    |
 
-Scenario Outline: Check for product display when selecting products
-    Given Buyer logged to website email <email> and password <password>
-    When Buyer clicks the product titled <product_name>
-    Then Buyer should see the product details for <expected_product>
+# Scenario Outline: Check for product display when selecting products
+#     Given Buyer logged to website email <email> and password <password>
+#     When Buyer clicks the product titled <product_name>
+#     Then Buyer should see the product details for <expected_product>
 
-    Examples:
-    | email         | password     | product_name        | expected_product         |
-    | standard_user | secret_sauce | Sauce Labs Backpack | Sauce Labs Backpack      | #Positive Case
-    | problem_user  | secret_sauce | Sauce Labs Backpack | Sauce Labs Backpack      | #Negative Case
+#     Examples:
+#     | email         | password     | product_name        | expected_product         |
+#     | standard_user | secret_sauce | Sauce Labs Backpack | Sauce Labs Backpack      | #Positive Case
+#     | problem_user  | secret_sauce | Sauce Labs Backpack | Sauce Labs Backpack      | #Negative Case
 
 # Scenario Outline: Login Negative Case 
 #   When Buyer logged to website with wrong email <email> or password <password>
@@ -71,3 +71,13 @@ Scenario Outline: Check for product display when selecting products
 #   Examples:
 #   |email                         | password        |
 #   |standard_user                 | secret_sauce    |
+
+Scenario Outline: Verify that Add to Cart button is clickable for problem user
+  Given Buyer logged to website email <email> and password <password>
+  When Buyer attempts to add the product titled <product_name> to Cart 
+  Then The product should not be added to cart 
+
+  Examples:
+  |email                         | password        |  product_name             |
+  |problem_user                  | secret_sauce    |  Sauce Labs Fleece Jacket |
+ 

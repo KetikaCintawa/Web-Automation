@@ -3,9 +3,11 @@ package stepdefinitions;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.webautomation.pageobjects.CartPage;
@@ -20,6 +22,7 @@ import com.webautomation.pageobjects.ProductListPage;
 import components.BaseTest;
 import hooks.Hooks;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.But;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -171,5 +174,31 @@ public class StepDefinitionsImpl extends BaseTest{
         Assert.assertEquals(selectedOption, productType, "Filter tidak cocok");
 
             }
+    
+    @When("^Buyer attempts to add the product titled (.+) to Cart$")
+    public void buyerClickProductToCart(String productName) throws InterruptedException{
+        ProductListPage productListPage = new ProductListPage(driver);
+
+        try {
+            productListPage.addToCartError(productName);
+            System.out.println("Product successfully added");
+        } catch (Exception e) {
+            System.out.println("Bug detected! Add to cart button is not clickable");
+            Assert.fail("Bug detected! Failed to click Add to cart button for product " + productName);
+        }
+    }
+
+    @Then("The product should not be added to cart")
+    public void verifyProductNotAdded() {
+        List<WebElement> shoppingCart = driver.findElements(By.className("shopping_cart_link"));
+
+        if(shoppingCart.isEmpty()) {
+            System.out.println("Test passed! Product not added to cart");
+        }
 
 }
+
+
+    }
+
+

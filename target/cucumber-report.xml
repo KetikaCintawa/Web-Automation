@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="17.17" tests="2" skipped="0" failures="1" errors="0" timestamp="2025-03-22T12:49:00.284891900Z">
-<testcase classname="Purchase the order from ecommerce" name="Check for product display when selecting products - #1.1" time="9.377">
-<system-out><![CDATA[
-Given Buyer landing to ecommerce............................................passed
-Given Buyer logged to website email standard_user and password secret_sauce.passed
-When Buyer clicks the product titled Sauce Labs Backpack....................passed
-Then Buyer should see the product details for Sauce Labs Backpack...........passed
-]]></system-out>
-</testcase>
-<testcase classname="Purchase the order from ecommerce" name="Check for product display when selecting products - #1.2" time="7.506">
-<failure type="java.lang.AssertionError" message="Bug detected! Expected:Sauce Labs Backpackbut got:Sauce Labs Fleece Jacket">
-<![CDATA[java.lang.AssertionError: Bug detected! Expected:Sauce Labs Backpackbut got:Sauce Labs Fleece Jacket
-	at org.testng.Assert.fail(Assert.java:111)
-	at stepdefinitions.StepDefinitionsImpl.buyerSeeProductDetails(StepDefinitionsImpl.java:100)
-	at ✽.Buyer should see the product details for Sauce Labs Backpack(file:///C:/Users/Admin/Web%20Automation/src/test/resources/features/CreateOrder.feature:25)
-]]>
-</failure>
+<testsuite name="Cucumber" time="9.758" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-22T14:42:27.730263Z">
+<testcase classname="Purchase the order from ecommerce" name="Verify that Add to Cart button is clickable for problem user - #1.1" time="9.289">
 <system-out><![CDATA[
 Given Buyer landing to ecommerce............................................passed
 Given Buyer logged to website email problem_user and password secret_sauce..passed
-When Buyer clicks the product titled Sauce Labs Backpack....................passed
-Then Buyer should see the product details for Sauce Labs Backpack...........failed
+When Buyer attempts to add the product titled Sauce Labs Fleece Jacket to Cart.passed
+Then The product should not be added to cart................................passed
 ]]></system-out>
 </testcase>
 </testsuite>
