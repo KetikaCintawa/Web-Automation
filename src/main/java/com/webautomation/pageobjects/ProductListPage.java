@@ -23,8 +23,12 @@ public class ProductListPage extends AbstractComponent{
     @FindBy(css = ".inventory_item")
     List<WebElement> listProducts;
 
+    @FindBy(xpath = "//span[@class='title']")
+    WebElement productTag;
+
     By cartButton = By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']");
     By titleProduct = By.cssSelector(".inventory_item_name");
+    By products = By.xpath("//span[@class='title']");
 
     public List<WebElement> getProductList(){
         return listProducts;
@@ -42,6 +46,11 @@ public class ProductListPage extends AbstractComponent{
         product.findElement(cartButton).click();
         Thread.sleep(2000);
 
+    }
+
+    public String getProductTag(){
+        visibilityOfElementLocated(products);
+        return productTag.getText();
     }
 
 }

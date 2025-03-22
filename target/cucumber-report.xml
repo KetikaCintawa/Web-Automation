@@ -1,42 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="36.091" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-03-21T19:26:40.002359500Z">
-<testcase classname="Purchase the order from ecommerce" name="Create order positive case - #1.1" time="11.945">
+<testsuite name="Cucumber" time="27.874" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-03-22T07:16:31.899554700Z">
+<testcase classname="Purchase the order from ecommerce" name="Buyer login with acceptable email and password - #1.1" time="8.241">
 <system-out><![CDATA[
 Given Buyer landing to ecommerce............................................passed
-Given Buyer logged to website email standard_user and password secret_sauce.passed
-When Buyer add product Sauce Labs Backpack to Cart..........................passed
-And Buyer checkout product..................................................passed
-And Buyer place order first_name Ketika last_name Cintawa and zip_code 64131.passed
-And Buyer will see checkout overview........................................passed
-Then Buyer will receive confirmation page Thank you for your order!.........passed
+When Buyer logged to website acceptable email standard_user and password secret_sauce.passed
+Then Buyer will see list products Products..................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Purchase the order from ecommerce" name="Login Negative Case - #1.1" time="7.645">
+<testcase classname="Purchase the order from ecommerce" name="Buyer login with acceptable email and password - #1.2" time="6.814">
 <system-out><![CDATA[
 Given Buyer landing to ecommerce............................................passed
-When Buyer logged to website with wrong email standard_user or password wrong_pw.passed
-Then Buyer will see tag heading error Epic sadface: Username and password do not match any user in this service.passed
+When Buyer logged to website acceptable email problem_user and password secret_sauce.passed
+Then Buyer will see list products Products..................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Purchase the order from ecommerce" name="Login Negative Case - #1.2" time="7.322">
+<testcase classname="Purchase the order from ecommerce" name="Buyer login with acceptable email and password - #1.3" time="6.555">
 <system-out><![CDATA[
 Given Buyer landing to ecommerce............................................passed
-When Buyer logged to website with wrong email wrong_email or password secret_sauce.passed
-Then Buyer will see tag heading error Epic sadface: Username and password do not match any user in this service.passed
+When Buyer logged to website acceptable email error_user and password secret_sauce.passed
+Then Buyer will see list products Products..................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Purchase the order from ecommerce" name="Filtering Products (4 Options) - #1.1" time="8.735">
+<testcase classname="Purchase the order from ecommerce" name="Buyer login with acceptable email and password - #1.4" time="6.03">
 <system-out><![CDATA[
 Given Buyer landing to ecommerce............................................passed
-Given Buyer logged to website email standard_user and password secret_sauce.passed
-When Buyer filter products by Name (A to Z).................................passed
-Then Buyer will see products sorted by Name (A to Z)........................passed
-When Buyer filter products by Name (Z to A).................................passed
-Then Buyer will see products sorted by Name (Z to A)........................passed
-When Buyer filter products by Price (low to high)...........................passed
-Then Buyer will see products sorted by Price (low to high)..................passed
-When Buyer filter products by Price (high to low)...........................passed
-Then Buyer will see products sorted by Price (high to low)..................passed
+When Buyer logged to website acceptable email visual_user and password secret_sauce.passed
+Then Buyer will see list products Products..................................passed
 ]]></system-out>
 </testcase>
 </testsuite>

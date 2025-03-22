@@ -1,14 +1,9 @@
 package stepdefinitions;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.Duration;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
 import com.webautomation.pageobjects.CartPage;
@@ -25,7 +20,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 // mendefinisikan step yang ada di feature
 public class StepDefinitionsImpl extends BaseTest{
@@ -95,6 +89,20 @@ public class StepDefinitionsImpl extends BaseTest{
         LandingPage landingPage = new LandingPage(driver);
         String errorTagText = landingPage.getErrorBadge();
         Assert.assertEquals(errorTagText, errorTag);
+    }
+
+    @When("^Buyer logged to website acceptable email (.+) and password (.+)$")
+    public void buyerLoginAcceptable(String email, String password){
+        LandingPage landingPage = new LandingPage(driver);
+        landingPage.loginApplication(email, password);
+    }
+
+    @Then("^Buyer will see list products (.+)$")
+    public void buyerSeeProducts(String order){
+        ProductListPage productPage = new ProductListPage(driver);
+        String productTagText = productPage.getProductTag();
+        Assert.assertEquals(productTagText, order);
+
     }
 
     @When("^Buyer filter products by (.+)$")
