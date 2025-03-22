@@ -1,5 +1,7 @@
 package stepdefinitions;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
 import org.openqa.selenium.By;
@@ -12,6 +14,7 @@ import com.webautomation.pageobjects.Checkout2Page;
 import com.webautomation.pageobjects.ConfirmationPage;
 import com.webautomation.pageobjects.FilteringProducts;
 import com.webautomation.pageobjects.LandingPage;
+import com.webautomation.pageobjects.ProductDetailPage;
 import com.webautomation.pageobjects.ProductListPage;
 
 import components.BaseTest;
@@ -27,7 +30,6 @@ public class StepDefinitionsImpl extends BaseTest{
     @Given("Buyer landing to ecommerce")
     public void landingPage() throws IOException{
     driver=Hooks.initializeDriver();
-        
     }
 
     // (.+) artinya menerima inputan dari feature
@@ -42,7 +44,6 @@ public class StepDefinitionsImpl extends BaseTest{
         ProductListPage productListPage = new ProductListPage(driver);
         productListPage.addToCart(productName);
         driver.findElement(By.xpath("//div[@id='shopping_cart_container']")).click();
-        
     }
 
     @And("Buyer checkout product")
@@ -74,6 +75,30 @@ public class StepDefinitionsImpl extends BaseTest{
         ConfirmationPage confirmationPage = new ConfirmationPage(driver);
         String confirmationPageText = confirmationPage.getConfirmationPage();
         Assert.assertEquals(confirmationPageText, successCheckout);        
+    }
+
+    @When("^Buyer clicks the product titled (.+)$")
+    public void buyerClickProduct(String productName){
+        ProductListPage productListPage = new ProductListPage(driver);
+        productListPage.getProductByName(productName).findElement(By.className("inventory_item_name")).click();
+
+    }
+
+    @Then("^Buyer should see the product details for (.+)$")
+    public void buyerSeeProductDetails(String expectedProduct){
+        ProductDetailPage productDetailPage = new ProductDetailPage(driver);
+        String actualProductTitle = productDetailPage.getProductTitle();
+        System.out.println("Actual product title captured: " + actualProductTitle);
+
+        if (actualProductTitle.equals(expectedProduct)){
+            System.out.println("Test passed! Correct product displayed.");
+        } else {
+            System.out.println("Bug detected!");
+            System.out.println("Expected:" + expectedProduct);
+            System.out.println("Actual: " + actualProductTitle);
+
+            Assert.fail("Bug detected! Expected:" + expectedProduct + "but got:" + actualProductTitle);
+        }
     }
 
     @When ("^Buyer logged to website with wrong email (.+) or password (.+)$")

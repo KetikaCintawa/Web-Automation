@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,9 +19,9 @@ public class AbstractComponent {
     public AbstractComponent(WebDriver driver){
         this.driver = driver;
     }
-    public void visibilityOfElementLocated(By locator){
+    public void visibilityOfElementLocated(By titleProduct){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(8000));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(titleProduct));
 
     }
 }

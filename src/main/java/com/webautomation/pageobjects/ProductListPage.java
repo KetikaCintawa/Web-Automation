@@ -26,6 +26,9 @@ public class ProductListPage extends AbstractComponent{
     @FindBy(xpath = "//span[@class='title']")
     WebElement productTag;
 
+    @FindBy(css= ".inventory_item_name")
+    WebElement productTitle;
+
     By cartButton = By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']");
     By titleProduct = By.cssSelector(".inventory_item_name");
     By products = By.xpath("//span[@class='title']");
@@ -53,4 +56,19 @@ public class ProductListPage extends AbstractComponent{
         return productTag.getText();
     }
 
-}
+    public String getProductTitle(){
+        visibilityOfElementLocated(titleProduct);
+        return productTitle.getText();
+    }
+
+    public ProductDetailPage clickProductByName(String productName) {
+        visibilityOfElementLocated(titleProduct);
+        WebElement product = getProductByName(productName);
+        product.findElement(titleProduct).click();
+        return new ProductDetailPage(driver);
+    }
+
+
+    }
+
+

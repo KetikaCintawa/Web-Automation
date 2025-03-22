@@ -19,6 +19,16 @@ Background: Buyer landed to website
 #   | email         | password     | product_name        | first_name | last_name | zip_code |
 #   | standard_user | secret_sauce | Sauce Labs Backpack | Ketika     | Cintawa   | 64131    |
 
+Scenario Outline: Check for product display when selecting products
+    Given Buyer logged to website email <email> and password <password>
+    When Buyer clicks the product titled <product_name>
+    Then Buyer should see the product details for <expected_product>
+
+    Examples:
+    | email         | password     | product_name        | expected_product         |
+    | standard_user | secret_sauce | Sauce Labs Backpack | Sauce Labs Backpack      | #Positive Case
+    | problem_user  | secret_sauce | Sauce Labs Backpack | Sauce Labs Backpack      | #Negative Case
+
 # Scenario Outline: Login Negative Case 
 #   When Buyer logged to website with wrong email <email> or password <password>
 #   Then Buyer will see tag heading error Epic sadface: Username and password do not match any user in this service
@@ -39,13 +49,13 @@ Background: Buyer landed to website
 #   | error_user                    | secret_sauce    |
 #   | visual_user                   | secret_sauce    |
 
-Scenario Outline: Blocked buyers cannot log in to the website
-  When Blocked Buyer logged to website with their email <email> and password <password>
-  Then Buyer will see error Epic sadface: Sorry, this user has been locked out.
+# Scenario Outline: Blocked buyers cannot log in to the website
+#   When Blocked Buyer logged to website with their email <email> and password <password>
+#   Then Buyer will see error Epic sadface: Sorry, this user has been locked out.
 
-  Examples:
-  | email                         | password        |
-  | locked_out_user               | secret_sauce    |
+#   Examples:
+#   | email                         | password        |
+#   | locked_out_user               | secret_sauce    |
 
 # Scenario Outline: Filtering Products (4 Options)
 #   Given Buyer logged to website email <email> and password <password>
