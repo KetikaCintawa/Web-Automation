@@ -105,6 +105,21 @@ public class StepDefinitionsImpl extends BaseTest{
 
     }
 
+    @When("^Blocked Buyer logged to website with their email (.+) and password (.+)$")
+    public void lockedOutBuyerLogin(String email, String password){
+        LandingPage landingPage = new LandingPage(driver);
+        landingPage.loginApplication(email, password);
+        String lockedOutError = landingPage.getLockedOutError();
+        Assert.assertEquals(lockedOutError, "Epic sadface: Sorry, this user has been locked out.");
+    }
+
+    @Then("^Buyer will see error (.+)$")
+    public void buyerSeeLockedOutError(String errorTag){
+        LandingPage landingPage = new LandingPage(driver);
+        String errorTagText = landingPage.getLockedOutError();
+        Assert.assertEquals(errorTagText, errorTag);
+    }
+
     @When("^Buyer filter products by (.+)$")
     public void buyerFilterProducts(String productType){
         FilteringProducts filteringProducts = new FilteringProducts(driver);

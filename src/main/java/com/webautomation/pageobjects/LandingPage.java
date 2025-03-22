@@ -34,12 +34,15 @@ public class LandingPage extends AbstractComponent{
     @FindBy (id = "login-button")
     WebElement LoginBtn;
 
-    By cartButton = By.id("user-name");
-
     @FindBy (xpath = "//h3[contains(text(),'Epic sadface: Username and password do not match a')]")
     WebElement errorBadge;
 
+    @FindBy (xpath = "//h3[contains(text(),'Epic sadface: Sorry, this user has been locked out')]")
+    WebElement lockedOutError;
+
+    By cartButton = By.id("user-name");
     By error = By.xpath("//h3[contains(text(),'Epic sadface: Username and password do not match a')]");
+    By lockedOut = By.xpath("//h3[contains(text(),'Epic sadface: Sorry, this user has been locked out')]");
  
     public void loginApplication(String email, String password){
         visibilityOfElementLocated(cartButton);
@@ -51,6 +54,11 @@ public class LandingPage extends AbstractComponent{
     public String getErrorBadge(){
         visibilityOfElementLocated(error);
         return errorBadge.getText();
+    }
+
+    public String getLockedOutError(){
+        visibilityOfElementLocated(lockedOut);
+        return lockedOutError.getText();
     }
     
 }

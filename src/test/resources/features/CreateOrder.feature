@@ -28,16 +28,24 @@ Background: Buyer landed to website
 #   |standard_user                 | wrong_pw        |
 #   |wrong_email                   | secret_sauce    |
 
-Scenario Outline: Buyer login with acceptable email and password
-  When Buyer logged to website acceptable email <email> and password <password>
-  Then Buyer will see list products Products
+# Scenario Outline: Buyer login with acceptable email and password
+#   When Buyer logged to website acceptable email <email> and password <password>
+#   Then Buyer will see list products Products
+
+#   Examples:
+#   | email                         | password        |
+#   | standard_user                 | secret_sauce    |
+#   | problem_user                  | secret_sauce    |
+#   | error_user                    | secret_sauce    |
+#   | visual_user                   | secret_sauce    |
+
+Scenario Outline: Blocked buyers cannot log in to the website
+  When Blocked Buyer logged to website with their email <email> and password <password>
+  Then Buyer will see error Epic sadface: Sorry, this user has been locked out.
 
   Examples:
   | email                         | password        |
-  | standard_user                 | secret_sauce    |
-  | problem_user                  | secret_sauce    |
-  | error_user                    | secret_sauce    |
-  | visual_user                   | secret_sauce    |
+  | locked_out_user               | secret_sauce    |
 
 # Scenario Outline: Filtering Products (4 Options)
 #   Given Buyer logged to website email <email> and password <password>
